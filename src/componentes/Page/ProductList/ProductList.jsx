@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Pagination from '../Pagination/Pagination';
+import sweetInfo from '../../sweetAlert/sweetInfo'
+import infoTraduccion from '../../categoria_traduccion/infoTraduccion';
 import './ProductList.css';
+
+
 const ProductList = () => {
 
     const [products, setProducts] = useState([]);
@@ -31,12 +35,17 @@ const ProductList = () => {
     <>
       <div className="container-products">
         {products.map(product => (
+          
             <div className="card-product" key={product.id}>
               <figure className="container-img">
+                
                 <img src={product.image} alt={product.title} />
               </figure>
               <div className="info-product">
-                <h3>{product.title}</h3>
+                <a className='ver-mas' onClick={ () => {
+                  const translatedCategory = infoTraduccion(product.category);
+                  sweetInfo(translatedCategory, product.description);
+                  }}>Ver más</a>
                 <p className="price">$ {product.price}</p>
                 <button>Añadir al carrito</button>
               </div>
