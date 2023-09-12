@@ -9,6 +9,10 @@ const ProductList = () => {
     const [productsPerPage, setProductsPerPage] = useState([6]);
     const [currentPage, setCurrentPage] = useState([1]);
 
+     
+    const lastIndex = currentPage * productsPerPage;
+    const firstIndex = lastIndex -  productsPerPage; 
+
     const productList = async() => { 
       const data = await fetch('https://fakestoreapi.com/products?limit=50');
       const products = await data.json();
@@ -27,7 +31,7 @@ const ProductList = () => {
     <>
       <div className="container-products">
         {products.map(product => (
-            <div className="card-product">
+            <div className="card-product" key={product.id}>
               <figure className="container-img">
                 <img src={product.image} alt={product.title} />
               </figure>
@@ -37,7 +41,8 @@ const ProductList = () => {
                 <button>Añadir al carrito</button>
               </div>
             </div>
-        ))}
+        )).slice(firstIndex, lastIndex)
+        }
       </div>
       <Pagination productsPerPage={productsPerPage}
       currentPage={currentPage}

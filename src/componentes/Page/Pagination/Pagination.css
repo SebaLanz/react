@@ -1,0 +1,7 @@
+/*Falta dar estilos a la páginación de bootstrap*/
+
+#navig{
+    display: grid;
+    justify-content: center;
+    
+}
