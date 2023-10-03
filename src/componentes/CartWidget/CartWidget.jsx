@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cart from './assets/cart.svg';
 import { Link } from 'react-router-dom';
+import './CartWidget.css';
 
 const CartWidget = () => {
   const [uniqueItemCount, setUniqueItemCount] = useState(0);

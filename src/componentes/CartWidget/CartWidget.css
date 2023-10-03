@@ -1,0 +1,10 @@
+img{
+    margin-right: 8px;
+    transition: 0.7s;
+}
+img:hover{
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px;
+    transition: 0.7s;
+}
