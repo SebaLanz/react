@@ -12,6 +12,9 @@ const NavBar = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
+        <Nav>
+          <Nav.Link as={Link} to="/infoCompra">Mi Carrito</Nav.Link>
+        </Nav>
           <NavDropdown title="Categorías" id="collasible-nav-dropdown">
             <NavDropdown.Item as={Link} to="/productosByAll">Todas las categorías</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/category/electronics">Electrónicos</NavDropdown.Item>
