@@ -7,6 +7,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import sweetInfo from '../../sweetAlert/sweetInfo';
 import infoTraduccion from '../categoria_traduccion/infoTraduccion';
 import './ProductList.css';
+import ItemCount from '../../ItemCount/ItemCount'
 
 const ProductList = () => {
   const { category } = useParams(); // Obtiene la categoría de la URL
@@ -68,7 +69,8 @@ const ProductList = () => {
                   Ver más
                 </a>
                 <p className="price">$ {product.price}</p>
-                <button>Añadir al carrito</button>
+                  
+                    <ItemCount initial={1} stock={10} onAdd={(quantity)=> console.log('Cant agregada',quantity)}></ItemCount>                
               </div>
             </div>
           ))}

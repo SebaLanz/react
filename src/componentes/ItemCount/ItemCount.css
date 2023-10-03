@@ -1,0 +1,32 @@
+.counter .controls{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.counter .controls .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Agregar esta línea para centrar verticalmente */
+    border: solid 1px black;
+    background-color: white;
+    color: black;
+    width: 50px;
+    height: 50px;
+    
+}
+.counter .controls .btn:first-child {
+
+    margin-right: 10px;
+}
+
+.quantity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnConfirmar{
+    border-radius: 15px;
+    background-color: rgb(187, 168, 145) !important;
+}
