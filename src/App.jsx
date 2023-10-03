@@ -11,14 +11,11 @@ function App() {
       <BrowserRouter>
         <Navbar />
         
-
-          <ItemCount initial={1} stock={10} onAdd={(quantity)=> console.log('Cant agregada',quantity)}></ItemCount>
-
+          {/* <ItemCount initial={1} stock={10} onAdd={(quantity)=> console.log('Cant agregada',quantity)}></ItemCount> */}
           <Routes>
             <Route path="/" element={<ItemListContainer greeting={'Bienvenidxs!!'} />} />
             <Route path="/productosByAll" element={<ProductList />} />
-            <Route path="/category/:category" element={<ProductList />} />
-            
+            <Route path="/category/:category" element={<ProductList />} />  
           </Routes>
 
       </BrowserRouter>

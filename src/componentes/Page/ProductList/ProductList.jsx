@@ -5,8 +5,10 @@ import Pagination from '../Pagination/Pagination';
  // Para que se actualice la vista (métodos get llamados a la api)
 import { useParams, useLocation } from 'react-router-dom';
 import sweetInfo from '../../sweetAlert/sweetInfo';
+import SweetCarrito from '../../sweetAlert/SweetCarrito';
 import infoTraduccion from '../categoria_traduccion/infoTraduccion';
 import './ProductList.css';
+
 
 const ProductList = () => {
   const { category } = useParams(); // Obtiene la categoría de la URL
@@ -68,7 +70,9 @@ const ProductList = () => {
                   Ver más
                 </a>
                 <p className="price">$ {product.price}</p>
-                <button>Añadir al carrito</button>
+
+                <button onClick={SweetCarrito()}>Añadir al carrito</button>
+                
               </div>
             </div>
           ))}
