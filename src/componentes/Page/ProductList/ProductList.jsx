@@ -8,6 +8,7 @@ import sweetInfo from '../../sweetAlert/sweetInfo';
 import infoTraduccion from '../categoria_traduccion/infoTraduccion';
 import './ProductList.css';
 import ItemCount from '../../ItemCount/ItemCount';
+import SweetCarrito from '../../sweetAlert/SweetCarrito';
 import CarritoLocal from '../../CarritoLocal/CarritoLocal';
 
 const ProductList = () => {
@@ -71,7 +72,11 @@ const ProductList = () => {
                 </a>
                 <p className="price">$ {product.price}</p>
                   
-                    <ItemCount initial={1} stock={10} onAdd={(quantity)=> CarritoLocal(quantity,product.title)}></ItemCount>                
+                    <ItemCount initial={1} stock={10} onAdd={(quantity)=> 
+                      SweetCarrito(quantity,product.title) + 
+                      CarritoLocal(quantity, product.id)}>
+                    </ItemCount>     
+
               </div>
             </div>
           ))}
