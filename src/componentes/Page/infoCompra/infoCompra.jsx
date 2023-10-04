@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './infoCompra.css';
 import GetProductById from '../GetProductById/GetProductById';
-import trashIcon from '../../CartWidget/assets/trash.svg';
+import SweetConfirmar from '../../sweetAlert/SweetConfirmar';
+
 
 const InfoCompra = () => {
   const cartData = localStorage.getItem('carrito');
@@ -32,6 +33,16 @@ const InfoCompra = () => {
     fetchData();
   }, [cartItems]);
 
+  const handleDeleteProduct = (productId) => {
+    // Obtén la lista actual de productos del localStorage
+    const existingProducts = JSON.parse(localStorage.getItem('carrito')) || [];
+    // Filtro por ID para eliminar el producto
+    const updatedProducts = existingProducts.filter((product) => product.id !== productId);
+    //Actualizo localStorage
+    localStorage.setItem('carrito', JSON.stringify(updatedProducts));
+    //Actualizo
+    setProducts(updatedProducts);
+  };
 
   return (
     <div className="info-compra-container">
@@ -57,9 +68,10 @@ const InfoCompra = () => {
               <td>{product.cantidad}</td>
               <td>${product.price * product.cantidad}</td>
               <td>
-                <button className="delete-button">
-                <img src={trashIcon} alt="Eliminar" />
-                </button>
+              <SweetConfirmar
+              onConfirm={() => handleDeleteProduct(product.id)} // Llama a la función de eliminación en confirmación
+              onCancel={() => {} /* Puedes dejarlo vacío si no deseas realizar ninguna acción al cancelar */}
+            />
               </td>
             </tr>
           ))}
