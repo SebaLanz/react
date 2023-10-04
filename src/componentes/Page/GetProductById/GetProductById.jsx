@@ -8,6 +8,7 @@ const GetProductById = ({ id_producto }) => {
     const fetchProduct = async () => {
       try {
         let apiUrl = `https://fakestoreapi.com/products/${id_producto}`;
+        
         const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('No se pudo obtener la información del producto');
@@ -24,11 +25,13 @@ const GetProductById = ({ id_producto }) => {
 
   return product ? (
     <div>
-      
       <p>{product.title}</p>
+      
       <img className='imgProducto' src={product.image} alt={product.title} />
+      
     </div>
   ) : null;
 };
 
 export default GetProductById;
+
