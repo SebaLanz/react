@@ -35,11 +35,10 @@ const InfoCompra = () => {
 
   return (
     <div className="info-compra-container">
-      <h3>Tu Carrito de Compras</h3>
       <table className="product-table">
         <thead>
           <tr>
-            <th>Código</th>
+            <th id='th_cod'>Código</th>
             <th>Producto</th>
             <th>Precio</th>
             <th>Cantidad</th>
@@ -51,7 +50,7 @@ const InfoCompra = () => {
           {products.map((product) => (
             <tr key={product.id}>
               <td>{product.id}</td>
-              <td>
+              <td id='td_product'>
                 <GetProductById id_producto={product.id} />
               </td>
               <td>${product.price}</td>
