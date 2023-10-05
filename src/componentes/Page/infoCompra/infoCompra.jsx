@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './infoCompra.css';
 import GetProductById from '../GetProductById/GetProductById';
 import SweetConfirmar from '../../sweetAlert/SweetConfirmar';
-
+import { db } from "../../../firebase/config";
+import { doc, getDoc } from "firebase/firestore";
 
 const InfoCompra = () => {
   const cartData = localStorage.getItem('carrito');
@@ -14,14 +15,17 @@ const InfoCompra = () => {
     const fetchData = async () => {
       const productPromises = cartItems.map(async (item) => {
         try {
-          const response = await fetch(`https://fakestoreapi.com/products/${item.id}`);
-          if (!response.ok) {
-            throw new Error('No se pudo obtener la información del producto');
+          const productDocRef = doc(db, "productos", item.id);
+          const productDocSnapshot = await getDoc(productDocRef);
+
+          if (!productDocSnapshot.exists()) {
+            throw new Error('El producto no existe en la base de datos');
           }
-          const productData = await response.json();
+
+          const productData = productDocSnapshot.data();
           return { ...productData, cantidad: item.cantidad };
         } catch (error) {
-          alert(`Error al obtener el producto con ID ${item.id}:`, error);
+          alert(`Error al obtener el producto con ID ${item.id}: ${error.message}`);
           return null;
         }
       });
@@ -68,10 +72,10 @@ const InfoCompra = () => {
               <td>{product.cantidad}</td>
               <td>${product.price * product.cantidad}</td>
               <td>
-              <SweetConfirmar
-              onConfirm={() => handleDeleteProduct(product.id)} // Llama a la función de eliminación en confirmación
-              onCancel={() => {} /* Puedes dejarlo vacío si no deseas realizar ninguna acción al cancelar */}
-            />
+                <SweetConfirmar
+                  onConfirm={() => handleDeleteProduct(product.id)} // Llama a la función de eliminación en confirmación
+                  onCancel={() => {} /* Puedes dejarlo vacío si no deseas realizar ninguna acción al cancelar */}
+                />
               </td>
             </tr>
           ))}
@@ -82,5 +86,6 @@ const InfoCompra = () => {
 };
 
 export default InfoCompra;
+
 
 
