@@ -21,7 +21,7 @@ const InfoCompra = () => {
           throw new Error('El producto no existe en la base de datos');
         }
 
-        // Extraer el ID del documento del docRef
+        // Extraer el ID del documento del docRef (dado que no tengo id como propiedad)
         const productId = productDocSnapshot.id;
 
         const productData = productDocSnapshot.data();
@@ -51,11 +51,13 @@ const InfoCompra = () => {
       const productDocRef = doc(db, "productos", productId);
       await deleteDoc(productDocRef);
 
-      // Leer el carrito del localStorage nuevamente para verificar si está vacío
+      // Leo el carrito del localStorage nuevamente para verificar si está vacío
       const updatedCartData = localStorage.getItem('carrito');
       const updatedCartItems = JSON.parse(updatedCartData) || [];
 
-      // Si el carrito está vacío, ocultar la tabla y el botón de comprarCarrito
+      // Actualizo después de eliminar para que no ma aparezcan los precios como NAN (si no tengo que actualizar la página).
+       fetchData();
+      // Si el carrito está vacío, oculto la tabla y el botón de comprarCarrito
       if (updatedCartItems.length === 0) {
         setShowTable(false);
       }
@@ -105,7 +107,7 @@ const InfoCompra = () => {
         <p>No hay productos agregados al carrito.</p>
       )}
 
-      {/* Mostrar el botón de comprarCarrito solo si showTable es true */}
+      {/* Muestro el botón de comprarCarrito solo si showTable es true */}
       {showTable && <ComprarCarrito cartItems={cartItems} />}
     </div>
   );
