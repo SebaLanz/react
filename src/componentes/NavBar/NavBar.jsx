@@ -14,6 +14,7 @@ const NavBar = () => {
         <Nav className="mr-auto">
         <Nav>
           <Nav.Link as={Link} to="/infoCompra">Mi Carrito</Nav.Link>
+          <Nav.Link as={Link} to="/misCompras">Mis Compras</Nav.Link>
         </Nav>
           <NavDropdown title="Categorías" id="collasible-nav-dropdown">
             <NavDropdown.Item as={Link} to="/productosByAll">Todas las categorías</NavDropdown.Item>

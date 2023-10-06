@@ -1,0 +1,96 @@
+/* MisCompras.css */
+
+/* Estilo para la tabla de compras */
+.purchase-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.purchase-table th,
+.purchase-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.purchase-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.purchase-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.purchase-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Estilo para los botones de eliminar compra */
+button {
+  background-color: #ff5252;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ff0000;
+}
+
+/* Estilo para las columnas Cantidad y Monto Final */
+.purchase-table th:nth-child(3),
+.purchase-table th:nth-child(5),
+.purchase-table td:nth-child(3),
+.purchase-table td:nth-child(5) {
+  text-align: center;
+}
+
+.purchase-table th:nth-child(3),
+.purchase-table td:nth-child(3) {
+  font-weight: bold;
+}
+
+.purchase-table th:nth-child(5),
+.purchase-table td:nth-child(5) {
+  font-weight: bold;
+  color: #00a000;
+}
+
+.purchase-table ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.purchase-table ul li {
+  margin-bottom: 5px;
+}
+
+.purchase-table ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* Estilo para los elementos de la lista de productos */
+.purchase-table ul li span {
+  font-weight: bold;
+}
+
+.purchase-table ul li span.quantity {
+  color: #00a000;
+}
+
+.liCompras{
+  display: flex;
+  border-bottom: 1px solid #ddd; /* Línea divisoria gris */
+  padding-bottom: 5px; /* Espacio entre los elementos de la lista */
+  height: 150px;
+  text-align: center;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+}
+.trCol{
+  width: 50px;
+}

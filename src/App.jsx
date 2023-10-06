@@ -4,6 +4,7 @@ import Navbar from './componentes/NavBar/NavBar';
 import ItemListContainer from './componentes/ItemListContainer/ItemListContainer';
 import ProductList from './componentes/Page/ProductList/ProductList';
 import InfoCompra from './componentes/Page/infoCompra/infoCompra'; // Importa el componente InfoCompra
+import MisCompras from './componentes/Page/MisCompras/MisCompras';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/productosByAll" element={<ProductList />} />
             <Route path="/category/:category" element={<ProductList />} />
             <Route path="/infoCompra" element={<InfoCompra />} />
+            <Route path="/MisCompras" element={<MisCompras />} />
           </Routes>
 
       </BrowserRouter>
