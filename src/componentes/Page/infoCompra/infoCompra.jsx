@@ -2,47 +2,61 @@ import React, { useEffect, useState } from 'react';
 import './infoCompra.css';
 import GetProductById from '../GetProductById/GetProductById';
 import SweetConfirmar from '../../sweetAlert/SweetConfirmar';
-
+import { db } from "../../../firebase/config";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 
 const InfoCompra = () => {
   const cartData = localStorage.getItem('carrito');
   const cartItems = JSON.parse(cartData) || [];
-  const [products, setProducts] = useState([]); // Almacenar los datos de productos
+  const [products, setProducts] = useState([]);
 
-  // Obtener los datos de productos para cada elemento del carrito
-  useEffect(() => {
-    const fetchData = async () => {
-      const productPromises = cartItems.map(async (item) => {
-        try {
-          const response = await fetch(`https://fakestoreapi.com/products/${item.id}`);
-          if (!response.ok) {
-            throw new Error('No se pudo obtener la información del producto');
-          }
-          const productData = await response.json();
-          return { ...productData, cantidad: item.cantidad };
-        } catch (error) {
-          alert(`Error al obtener el producto con ID ${item.id}:`, error);
-          return null;
+  const fetchData = async () => {
+    const productPromises = cartItems.map(async (item) => {
+      try {
+        const productDocRef = doc(db, "productos", item.id);
+        const productDocSnapshot = await getDoc(productDocRef);
+
+        if (!productDocSnapshot.exists()) {
+          throw new Error('El producto no existe en la base de datos');
         }
-      });
 
-      const products = await Promise.all(productPromises);
-      setProducts(products.filter((product) => product !== null));
-    };
+        // Extraer el ID del documento del docRef
+        const productId = productDocSnapshot.id;
 
-    fetchData();
-  }, [cartItems]);
+        const productData = productDocSnapshot.data();
+        return { ...productData, cantidad: item.cantidad, id: productId };
+      } catch (error) {
+        alert(`Error al obtener el producto con ID ${item.id}: ${error.message}`);
+        return null;
+      }
+    });
 
-  const handleDeleteProduct = (productId) => {
-    // Obtén la lista actual de productos del localStorage
-    const existingProducts = JSON.parse(localStorage.getItem('carrito')) || [];
-    // Filtro por ID para eliminar el producto
-    const updatedProducts = existingProducts.filter((product) => product.id !== productId);
-    //Actualizo localStorage
-    localStorage.setItem('carrito', JSON.stringify(updatedProducts));
-    //Actualizo
-    setProducts(updatedProducts);
+    const products = await Promise.all(productPromises);
+    setProducts(products.filter((product) => product !== null));
   };
+
+  useEffect(() => {
+    // Cargar los datos una vez al montar el componente
+    fetchData();
+  }, []); // El arreglo vacío asegura que se ejecute solo una vez al montar el componente
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const existingProducts = JSON.parse(localStorage.getItem('carrito')) || [];
+      const updatedProducts = existingProducts.filter((product) => product.id !== productId);
+      localStorage.setItem('carrito', JSON.stringify(updatedProducts));
+      setProducts(updatedProducts);
+
+      const productDocRef = doc(db, "productos", productId);
+      await deleteDoc(productDocRef);
+
+      // Una vez eliminado el producto, vuelva a cargar los datos
+      fetchData();
+    } catch (error) {
+      alert(`Error al eliminar el producto: ${error.message}`);
+    }
+  };
+
 
   return (
     <div className="info-compra-container">
@@ -68,10 +82,10 @@ const InfoCompra = () => {
               <td>{product.cantidad}</td>
               <td>${product.price * product.cantidad}</td>
               <td>
-              <SweetConfirmar
-              onConfirm={() => handleDeleteProduct(product.id)} // Llama a la función de eliminación en confirmación
-              onCancel={() => {} /* Puedes dejarlo vacío si no deseas realizar ninguna acción al cancelar */}
-            />
+                <SweetConfirmar
+                  onConfirm={() => handleDeleteProduct(product.id)}
+                  onCancel={() => {}}
+                />
               </td>
             </tr>
           ))}
@@ -82,5 +96,3 @@ const InfoCompra = () => {
 };
 
 export default InfoCompra;
-
-
