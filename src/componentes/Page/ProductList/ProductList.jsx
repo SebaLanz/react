@@ -19,12 +19,11 @@ const ProductList = () => {
   const totalProducts = products.length;
   const [productsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-  const { pathname } = useLocation(); // Obtiene la ubicación actual
+  const { pathname } = useLocation();
 
   const lastIndex = currentPage * productsPerPage;
   const firstIndex = lastIndex - productsPerPage;
 
-  // Obtener la cantidad vendida desde StockLocalStore
   const cantidadVendida = StockLocalStore();
 
   useEffect(() => {
@@ -40,21 +39,18 @@ const ProductList = () => {
           ? firebaseProducts.filter((product) => product.category === category)
           : firebaseProducts;
 
-        // Restar las cantidades vendidas del stock en la base de datos
         const productsWithStock = filteredProducts.map((product) => {
           const productStock = product.stock - (cantidadVendida[product.id] || 0);
           return { ...product, productStock };
         });
 
         setProducts(productsWithStock);
-        // Reiniciar a la página 1 cuando cambie la categoría
         setCurrentPage(1);
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
     };
 
-    // Llama a productList cada vez que cambia la categoría
     productList();
   }, [category, pathname, cantidadVendida]);
 
@@ -76,11 +72,12 @@ const ProductList = () => {
                     sweetInfo(translatedCategory, product.description, product.rate);
                   }}
                 >
-                  <p className='ver-mas_p'>
+                 <p className='ver-mas_p'>
                   Ver más <br /> 
-                  Stock: {product.productStock} {/* Muestra el stock actualizado del producto */}
-                  </p>
+                  
+                </p>
                 </a>
+                <p><b>Stock:</b> {product.productStock === 0 ?  "Sin stock Disponible" : product.productStock}</p>
                 <p className="price">$ {product.price} </p>
                 <ItemCount initial={1} stock={product.productStock} onAdd={(quantity) =>
                   SweetCarrito(quantity, product.title) +
