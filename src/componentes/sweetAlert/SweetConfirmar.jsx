@@ -1,6 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import trashIcon from '../CartWidget/assets/trash.svg';
+import './SweetDelete.css';
 
 //Me permite eliminar el producto / cancelar la eliminación.
 const SweetConfirmar = ({ onConfirm, onCancel }) => {

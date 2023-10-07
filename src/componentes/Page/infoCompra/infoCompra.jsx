@@ -20,14 +20,12 @@ const InfoCompra = () => {
         if (!productDocSnapshot.exists()) {
           throw new Error('El producto no existe en la base de datos');
         }
-
         // Extraer el ID del documento del docRef (dado que no tengo id como propiedad)
         const productId = productDocSnapshot.id;
-
         const productData = productDocSnapshot.data();
         return { ...productData, cantidad: item.cantidad, id: productId };
       } catch (error) {
-        alert(`Error al obtener el producto con ID ${item.id}: ${error.message}`);
+        
         return null;
       }
     });

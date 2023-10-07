@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SweetCompra from '../../sweetAlert/SweetCompra';
+import "./ComprarCarrito.css";
 
 const ComprarCarrito = ({ cartItems }) => {
   const [showSweetCompra, setShowSweetCompra] = useState(false);
@@ -9,17 +10,10 @@ const ComprarCarrito = ({ cartItems }) => {
     if (showSweetCompra) {
       return;
     }
-
-    // Generar un identificador único para la compra (por ejemplo, un timestamp)
     const compraId = `compra_${Date.now()}`;
-
-    // Guardar la compra en el localStorage con el identificador único
     localStorage.setItem(compraId, JSON.stringify(cartItems));
-
-    // Mostrar SweetCompra al hacer clic en el botón de "Comprar"
     setShowSweetCompra(true);
   };
-
   const handleCloseSweetCompra = () => {
     setShowSweetCompra(false);
     localStorage.removeItem('carrito');
@@ -28,7 +22,7 @@ const ComprarCarrito = ({ cartItems }) => {
 
   return (
     <div>
-      <button onClick={handleComprar} disabled={showSweetCompra}>
+      <button className='buy-button' onClick={handleComprar} disabled={showSweetCompra}>
         {showSweetCompra ? 'Compra Realizada' : 'Comprar'}
       </button>
       {showSweetCompra && (

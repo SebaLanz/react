@@ -1,77 +1,61 @@
+/* Estilos para la tabla en InfoCompra */
 .info-compra-container {
-  margin: 7%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
+  margin: 20px auto; /* Centrar la tabla horizontalmente y agregar margen superior */
+  max-width: 95%; /* Ancho máximo de la tabla */
+  border-radius: 5px; /* Borde redondeado */
+  overflow: auto; /* Agregar barra de desplazamiento si es necesario */
+  background-color: #fffb; /* Color de fondo */
+  padding: 10px; /* Espacio interno */
 }
 
-.product-table-container {
-  border: 1px solid black; /* Agregar el borde al contenedor */
-  overflow: auto; /* Agregar desplazamiento si la tabla es demasiado grande */
-}
-
-.product-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0; /* Eliminar el espaciado entre celdas */
-  border: 1px solid black; /* Borde negro alrededor de toda la tabla */
-}
-
+/* Estilos para las celdas en la tabla */
 .product-table th,
 .product-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  padding: 10px; /* Espacio interno en las celdas */
+  text-align: center; /* Centrar el contenido de las celdas */
+  border: 1px solid #ddd; /* Borde de celdas */
 }
 
-.product-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  text-align: center; /* Centrar los encabezados */
-  width: 10px;
+/* Estilos para las filas pares */
+.product-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Color de fondo para filas pares */
 }
 
-/* Ajusta el ancho de las columnas (excepto 'Producto') */
-.product-table th:not(#th_product),
-.product-table td:not(#td_product) {
-  width: 50px; /* Cambia el ancho según tus preferencias */
-}
-
-/* Deja que la columna de 'Producto' se ajuste automáticamente */
-#th_product,
-#td_product {
-  white-space: nowrap; /* Evita el ajuste de texto en 'Producto' */
-}
-
+/* Estilos al pasar el mouse sobre las filas */
 .product-table tbody tr:hover {
-  background-color: #f5f5f5;
+  background-color: #fff6 !important; /* Cambia el color de fondo al pasar el mouse */
 }
 
-.product-table img {
-  max-width: 100px;
+/* Estilos para el botón de eliminar */
+.product-table tbody td .delete-button {
+  border-radius: 15px;
+}
+.product-table tbody td .delete-button img {
+  border-radius: 10px;
+  width: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-left: 10px;
+}
+.product-table tbody td .delete-button img:hover {
+  display: none;
+  
 }
 
-/* Alinear el texto de las celdas finales a la derecha */
-.product-table td {
-  text-align: center;
-}
-
-/* Alinear el texto de la columna 'Producto' a la izquierda */
-#td_product {
-  text-align: left;
-}
-
-/* Estilo para el botón de eliminación */
-.delete-button {
-  background-color: transparent;
-  border: none;
+/* Estilos para el botón de comprar */
+.product-table .buy-button {
+  background-color: #6fcaea; /* Color de fondo para el botón */
+  color: #000; /* Color de texto para el botón */
+  border: none; /* Elimina el borde del botón */
+  padding: 5px 10px; /* Espacio interno del botón */
+  border-radius: 5px; /* Borde redondeado para el botón */
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave de colores */
 }
 
-#th_cod{
-  width: 10px !important;
+/* Estilos al pasar el mouse sobre el botón de comprar */
+.product-table .buy-button:hover {
+  background-color: #006b21; /* Cambia el color de fondo al pasar el mouse */
+  color: #fff; /* Cambia el color de texto al pasar el mouse */
 }

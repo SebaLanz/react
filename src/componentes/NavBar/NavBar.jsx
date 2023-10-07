@@ -4,10 +4,11 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import CartWidget from '../CartWidget/CartWidget';
 import { Link } from 'react-router-dom'; // Importa Link para crear enlaces de navegación
+import './NavBar.css';
 
 const NavBar = () => {
   return (
-    <Navbar bg="light" expand="lg" className='navbar_container'>
+    <Navbar  expand="lg" className='navBar_contenedor'>
       <Navbar.Brand href="../../App.js">Inicio</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

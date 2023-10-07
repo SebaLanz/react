@@ -1,0 +1,30 @@
+/* Estilos para el botón de Comprar */
+.buy-button {
+    background-color: #23bdd5; /* Cambia el color de fondo */
+    color: #fff; /* Cambia el color de texto */
+    border: none;
+    padding: 10px 20px; /* Ajusta el espacio interno del botón */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer;
+    margin-top: 10px; /* Pequeño margen superior */
+    display: block; /* Convierte el botón en un bloque para centrarlo */
+    margin: 0 auto; /* Centra horizontalmente el botón */
+    font-weight: bold; /* Texto en negrita */
+    margin-top: 30px;
+    transition: 0.5;
+}
+.buy-button:hover{
+    background-color: #cf6d1e;
+    transition: 0.5;
+}
+  /* Estilos para el botón de Comprar cuando está deshabilitado */
+  .buy-button[disabled] {
+    background-color: #ccc; /* Cambia el color de fondo cuando está deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" cuando está deshabilitado */
+  }
+  
+  /* Estilos para el SweetCompra */
+  .sweet-compra-container {
+    text-align: center; /* Centra el contenido del SweetCompra */
+  }
+  

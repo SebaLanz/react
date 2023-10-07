@@ -15,8 +15,13 @@
     height: 50px;
     
 }
+.counter .controls .btn:hover:nth-child(2) {
+    color: green;
+}
+.counter .controls .btn:hover:first-child {
+    color: red;
+}
 .counter .controls .btn:first-child {
-
     margin-right: 10px;
 }
 
@@ -26,7 +31,20 @@
     align-items: center;
 }
 
-.btnConfirmar{
-    border-radius: 15px;
-    background-color: rgb(187, 168, 145) !important;
-}
+/* Agrega estilo al botón "Agregar al carrito" sin cambiar su color */
+.btnConfirmar {
+    background-color: #3498db; /* Fondo transparente */
+    color: #3498db; /* Color de texto original */
+    border: 1px solid #3498db; /* Borde con el color original */
+    border-radius: 5px;
+    padding: 10px 20px; /* Espacio interno del botón */
+    cursor: pointer;
+    font-weight: bold; /* Negrita */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave de colores */
+  }
+  
+  .btnConfirmar:hover {
+    background-color: #d25422; /* Cambia el color de fondo al pasar el mouse */
+    color: #fff; /* Cambia el color de texto al pasar el mouse */
+  }
+  

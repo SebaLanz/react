@@ -61,13 +61,15 @@ const ProductList = () => {
                   className="ver-mas"
                   onClick={() => {
                     const translatedCategory = infoTraduccion(product.category);
-                    sweetInfo(translatedCategory, product.description);
+                    sweetInfo(translatedCategory, product.description, product.rate);
                   }}
                 >
+                  <p className='ver-mas_p'>
                   Ver más
+                  </p>
                 </a>
                 <p className="price">$ {product.price}</p>
-                <ItemCount initial={1} stock={10} onAdd={(quantity) =>
+                <ItemCount initial={1} stock={150} onAdd={(quantity) =>
                   SweetCarrito(quantity, product.title) +
                   CarritoLocal(quantity, product.id)}>
                 </ItemCount>

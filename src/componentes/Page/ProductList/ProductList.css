@@ -4,82 +4,86 @@ padding: 0;
 box-sizing: border-box;
 }
 
-body{
-font-family: Poppins;
-margin: 0 auto;
-}
-
-img{
-max-width: 100%;
-}
-
-.title{
-text-align: center;
-padding: 30px 0;
-}
-
-
-
-.container-products{
-display: grid;
-grid-template-columns: repeat(3,1fr);
-gap: 20px;
-width: 60vw;
-margin-left: 20vw;
+.container-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  gap: 20px;
+  width: 80%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .card-product {
-    flex: 20%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .container-img {
-    flex: 1;
-  }
-  
-  .container-img img {
-    width: 100%;
-    height: 300px;
-    object-fit: contain;
-  }
-  
-  .info-product {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 15px 30px;
-    height: 100%;
-    max-height: 200px; /* Establece una altura máxima para info-product */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-  }
-  
-  .info-product h3 {
-    color: #777;
-    font-weight: 300;
-  }
-  .ver-mas{
-    text-decoration: none;
-    color: #b07a7a;
-    cursor: pointer;
-  }
-  
-  .price {
-    color: #000;
-    font-weight: 700;
-    margin: 15px 0;
-    
-  }
-  
-  .info-product button {
-    background-color: #b07a7a;
-    color: #fff;
-    border: none;
-    display: block;
-    width: 100%;
-    padding: 20px 0;
-    cursor: pointer;
-    margin-top: auto;
-  }
-  
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+
+
+/* Estilos para centrar las imágenes dentro de las tarjetas */
+.container-img {
+  flex: 1;
+  display: flex;
+  align-items: center; /* Centra verticalmente las imágenes */
+  justify-content: center; /* Centra horizontalmente las imágenes */
+  border: 1px solid black;
+  box-shadow: 0 0 10px rgba(251, 1, 1, 0.2); /* Agrega un estilo de sombreado al borde */
+  height: 250px;
+
+}
+
+.container-img img {
+  max-width: 90%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+  max-height: 200px;
+  object-fit: contain; /* Ajusta el tamaño de la imagen para contener el contenedor */
+  border-radius: 5px;
+}
+
+
+/* Estilos para el texto "Ver más" */
+.ver-mas {
+  text-decoration: none;
+  color: #000; /* Color de texto negro */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: color 0.5s; /* Cambio suave de color del texto al pasar el mouse */
+}
+.ver-mas_p:hover{
+  color: red;
+  transition: 0.3s;
+}
+
+
+
+.ver-mas:hover {
+  color: #fff; /* Cambia el color de texto al pasar el mouse */
+}
+
+
+/* Estilos para el precio */
+.price {
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color de texto en negrita */
+}
+
+/* Estilos para el botón "Agregar al carrito" */
+.info-product button {
+  color: #fff; /* Color de texto */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px; /* Espacio interno del botón */
+  cursor: pointer;
+  margin-top: auto;
+  font-weight: bold; /* Negrita */
+  transition: background-color 0.3s; /* Transición suave del color de fondo */
+}
+

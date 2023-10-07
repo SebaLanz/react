@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './MisCompras.css';
-import GetProductById from '../GetProductById/GetProductById';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
@@ -18,7 +17,7 @@ const MisCompras = () => {
 
       const productsWithPrices = await Promise.all(
         purchaseData.map(async (product) => {
-          const productDocRef = doc(db, "productos", product.id);
+          const productDocRef = doc(db, "productos", product.id.toString());
           const productDocSnapshot = await getDoc(productDocRef);
 
           if (productDocSnapshot.exists()) {
@@ -47,16 +46,16 @@ const MisCompras = () => {
   }, []);
 
   return (
-    <div className="info-compra-container">
+    <div className="test">
       {purchaseItems.length > 0 ? (
-  <table className="product-table">
-    <thead className='trCol'>
+  <table className="table_compra">
+    <thead class="thead-dark">
       <tr >
-        <th >Código</th>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Cantidad</th>
-        <th>Total</th>
+      <th className='tabla_th'>Código</th>
+      <th className='tabla_th'>Producto</th>
+      <th className='tabla_th'>Cantidad</th>
+      <th className='tabla_th'>Precio</th>
+      <th className='tabla_th'>Total de la Compra</th>
       </tr>
     </thead>
     <tbody>
@@ -65,25 +64,18 @@ const MisCompras = () => {
 
         return (
           <tr key={purchase.key}>
-            <td>{purchase.key}</td>
-            <td>
+            <td className='td_test_id'> {purchase.key}</td>
+            <td className='td_test_img'>
               <ul>
                 {purchase.data.map((product) => {
                   const totalProducto = product.price * product.cantidad;
                   purchaseTotal += totalProducto; // Actualiza el total de compra
                   return (
                     <li className='liCompras' key={product.id}>
-<                   img src={product.image} alt={`Imagen de ${product.name}`} />
+                        <img src={product.image} alt={`Imagen de ${product.name}`} />
                     </li>
                   );
                 })}
-              </ul>
-            </td>
-            <td>
-              <ul>
-                {purchase.data.map((product) => (
-                  <li className='liCompras' key={product.id}>${product.price}</li>
-                ))}
               </ul>
             </td>
             <td>
@@ -93,7 +85,14 @@ const MisCompras = () => {
                 ))}
               </ul>
             </td>
-            <td>${purchaseTotal}</td>
+            <td>
+              <ul>
+                {purchase.data.map((product) => (
+                  <li className='liCompras' key={product.id}>${product.price}</li>
+                ))}
+              </ul>
+            </td>
+            <td style={{textAlign:'center', color:'green'}}>${purchaseTotal}</td>
           </tr>
         );
       })}
