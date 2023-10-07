@@ -10,6 +10,8 @@ import SweetCarrito from '../../sweetAlert/SweetCarrito';
 import CarritoLocal from '../../CarritoLocal/CarritoLocal';
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import StockLocalStore from '../StockLocalStore/StockLocakStore';
+
 
 const ProductList = () => {
   const { category } = useParams();
@@ -21,6 +23,9 @@ const ProductList = () => {
 
   const lastIndex = currentPage * productsPerPage;
   const firstIndex = lastIndex - productsPerPage;
+
+  // Obtener la cantidad vendida desde StockLocalStore
+  const cantidadVendida = StockLocalStore();
 
   useEffect(() => {
     const productList = async () => {
@@ -35,16 +40,23 @@ const ProductList = () => {
           ? firebaseProducts.filter((product) => product.category === category)
           : firebaseProducts;
 
-        setProducts(filteredProducts);
-        //Reiniciar a la página 1 cuando cambie la categoría
+        // Restar las cantidades vendidas del stock en la base de datos
+        const productsWithStock = filteredProducts.map((product) => {
+          const productStock = product.stock - (cantidadVendida[product.id] || 0);
+          return { ...product, productStock };
+        });
+
+        setProducts(productsWithStock);
+        // Reiniciar a la página 1 cuando cambie la categoría
         setCurrentPage(1);
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
     };
-    //Llama a productList cada vez que cambia la categoría
+
+    // Llama a productList cada vez que cambia la categoría
     productList();
-  }, [category, pathname]);
+  }, [category, pathname, cantidadVendida]);
 
   return (
     <>
@@ -65,11 +77,12 @@ const ProductList = () => {
                   }}
                 >
                   <p className='ver-mas_p'>
-                  Ver más
+                  Ver más <br /> 
+                  Stock: {product.productStock} {/* Muestra el stock actualizado del producto */}
                   </p>
                 </a>
-                <p className="price">$ {product.price}</p>
-                <ItemCount initial={1} stock={150} onAdd={(quantity) =>
+                <p className="price">$ {product.price} </p>
+                <ItemCount initial={1} stock={product.productStock} onAdd={(quantity) =>
                   SweetCarrito(quantity, product.title) +
                   CarritoLocal(quantity, product.id)}>
                 </ItemCount>
