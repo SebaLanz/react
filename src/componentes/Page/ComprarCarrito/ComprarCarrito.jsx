@@ -1,39 +1,22 @@
-import React, { useState } from 'react';
-import SweetCompra from '../../sweetAlert/SweetCompra';
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import "./ComprarCarrito.css";
 
-const ComprarCarrito = ({ cartItems }) => {
-  const [showSweetCompra, setShowSweetCompra] = useState(false);
-  const [compraId, setCompraId] = useState(""); // Agrega el estado para compraId
+const ComprarCarrito = () => {
+  const navigate = useNavigate(); 
 
   const handleComprar = () => {
-    // Comprobar si la compra ya se realizó
-    if (showSweetCompra) {
-      return;
-    }
-    const nuevaCompraId = `compra_${Date.now()}`;
-    localStorage.setItem(nuevaCompraId, JSON.stringify(cartItems));
-    setCompraId(nuevaCompraId); // Actualiza el valor de compraId en el estado
-    setShowSweetCompra(true);
-    
+    navigate('/Contacto');
   };
 
-  const handleCloseSweetCompra = () => {
-    setShowSweetCompra(false);
-    localStorage.removeItem('carrito');
-    window.location.reload();
-  };
-
-  return (
+  return (  
     <div>
-      <button className='buy-button' onClick={handleComprar} disabled={showSweetCompra}>
-        {showSweetCompra ? 'Compra Realizada' : 'CheckOut'}
+      <button className='buy-button' onClick={handleComprar}>
+        CheckOut
       </button>
-      {showSweetCompra && (
-        <SweetCompra compraId={compraId} onClose={handleCloseSweetCompra} />
-      )}
     </div>
   );
 };
 
 export default ComprarCarrito;
+
