@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import   { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
-const SweetCompra = ({ onClose }) => {
+const SweetCompra = ({ compraId, onClose }) => {
   useEffect(() => {
     // Mostrar el modal de SweetAlert
     Swal.fire({
       title: 'Compra generada',
+      text: `Su Código es: ${compraId}`,
       icon: 'success',
       confirmButtonText: 'Aceptar',
     }).then((result) => {
@@ -14,7 +15,7 @@ const SweetCompra = ({ onClose }) => {
         onClose();
       }
     });
-  }, [onClose]);
+  }, [compraId,onClose]);
 
   return null;
 };

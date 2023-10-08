@@ -54,7 +54,7 @@ const InfoCompra = () => {
       const updatedCartItems = JSON.parse(updatedCartData) || [];
 
       // Actualizo después de eliminar para que no ma aparezcan los precios como NAN (si no tengo que actualizar la página).
-       fetchData();
+      fetchData();
       // Si el carrito está vacío, oculto la tabla y el botón de comprarCarrito
       if (updatedCartItems.length === 0) {
         setShowTable(false);
@@ -105,7 +105,6 @@ const InfoCompra = () => {
         <p>No hay productos agregados al carrito.</p>
       )}
 
-      {/* Muestro el botón de comprarCarrito solo si showTable es true */}
       {showTable && <ComprarCarrito cartItems={cartItems} />}
     </div>
   );

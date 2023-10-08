@@ -1,0 +1,51 @@
+
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.form-container {
+text-align: center;
+padding: 40px; /* Aumenta el espacio interno del formulario */
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border-radius: 5px;
+width: 80%; /* Ancho del formulario */
+max-width: 400px; /* Ancho máximo para evitar que sea demasiado ancho */
+}
+
+.form-title {
+font-size: 24px;
+margin-bottom: 20px;
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+.form-input {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+outline: none;
+}
+
+
+
+.form-button {
+background-color: #3498db;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+transition: 0.5;
+}
+
+.form-button:hover {
+background-color: #0056b3;
+transition: 0.5;
+}
