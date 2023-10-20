@@ -1,4 +1,4 @@
-const CarritoLocal = (cantidad, id_producto) => {
+const CarritoLocal = (cantidad, id_producto, price) => {
     // Obtiene la lista actual de productos del localStorage
     const existingProducts = JSON.parse(localStorage.getItem('carrito')) || [];
   
@@ -10,7 +10,7 @@ const CarritoLocal = (cantidad, id_producto) => {
       existingProduct.cantidad += cantidad;
     } else {
       // Si el producto no existe, agrega uno nuevo
-      existingProducts.push({ id: id_producto, cantidad });
+      existingProducts.push({ id: id_producto, cantidad, price });
     }
   
     // Almacena la lista actualizada en el localStorage

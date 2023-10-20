@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2'; // Importa SweetAlert
+import Swal from 'sweetalert2';
 import SweetCompra from '../sweetAlert/SweetCompra';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebase/config';
 import './Contacto.css';
 
 const Contacto = () => {
@@ -9,17 +11,17 @@ const Contacto = () => {
   const [showSweetCompra, setShowSweetCompra] = useState(false);
   const [compraId, setCompraId] = useState('');
 
-  const enviar = (data) => {
+  const enviar = async (data) => {
     const carritoData = localStorage.getItem('carrito');
-    
-    // Validar que los campos de nombre, email y teléfono no estén vacíos
+
+    // Válido que los campos de nombre, email y teléfono no estén vacíos
     if (!data.nombre || !data.email || !data.telefono) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Por favor, completa todos los campos antes de finalizar la compra.'
       });
-      return; // No se realiza la compra
+      return; // No realizo la compra
     }
 
     // Verificar si no existe la clave 'carrito' en el localStorage o si está vacía
@@ -29,37 +31,51 @@ const Contacto = () => {
         title: 'Oops...',
         text: 'No hay productos en el carrito para realizar la compra.'
       });
-      return; // No se realiza la compra
+      return; // No realizo la compra
     }
 
-    const nuevaCompraId = `compra_${Date.now()}`;
-    const carritoItems = JSON.parse(carritoData) || [];
-
-    // Crear un array para almacenar los objetos de compra
+    // Creo un array para almacenar los objetos de compra
     const compras = [];
+
+    const carritoItems = JSON.parse(carritoData);
 
     carritoItems.forEach((item) => {
       const productId = item.id;
       const cantidad = item.cantidad;
+      
 
-      // Crear un objeto que represente la compra del producto
+      // Creo un objeto que represente la compra del producto
       const compraProducto = {
         id: productId,
         cantidad: cantidad,
+        
       };
 
-      // Agregar la compra del producto al array de compras
+      // Agrego la compra del producto al array de compras
       compras.push(compraProducto);
     });
 
-    // Guardar el array de compras en el localStorage usando nuevaCompraId como clave
-    localStorage.setItem(nuevaCompraId, JSON.stringify(compras));
+    // Guardar la compra en Firebase
+    try {
+      const docRef = await addDoc(collection(db, 'compras'), {
+        compras: compras,
+        nombre: data.nombre,
+        email: data.email,
+        telefono: data.telefono
+      });
 
-    setCompraId(nuevaCompraId);
-    setShowSweetCompra(true);
+      setCompraId(docRef.id);
+      setShowSweetCompra(true);
 
-    // Eliminar la clave 'carrito' del localStorage
-    localStorage.removeItem('carrito');
+      // Elimino la clave 'carrito' del localStorage
+      localStorage.removeItem('carrito');
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar la compra en Firebase',
+        text: error.message
+      });
+    }
   };
 
   const handleCloseSweetCompra = () => {
@@ -112,5 +128,3 @@ const Contacto = () => {
 };
 
 export default Contacto;
-
-
