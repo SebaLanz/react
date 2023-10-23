@@ -3,12 +3,13 @@ import './MisCompras.css';
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import GetProductById from '../GetProductById/GetProductById';
+import GetPriceById from '../GetPriceById/GetPriceById';
 
 const MisCompras = () => {
   const [purchaseItems, setPurchaseItems] = useState([]);
 
   const fetchData = async () => {
-    // Realiza una consulta a Firebase para obtener todas las compras
+    
     const purchasesQuery = query(collection(db, "compras"));
     const purchasesSnapshot = await getDocs(purchasesQuery);
 
@@ -16,12 +17,12 @@ const MisCompras = () => {
     purchasesSnapshot.forEach((purchaseDoc) => {
       const purchase = purchaseDoc.data();
 
-      // Obtén la información de precio de cada producto
+      
       const productsWithPrice = purchase.compras.map((product) => {
         return {
           id: product.id,
           cantidad: product.cantidad,
-          price: product.price // Añade el precio desde la base de datos
+          price: product.price 
         };
       });
 
@@ -32,7 +33,7 @@ const MisCompras = () => {
   };
 
   useEffect(() => {
-    // Cargar los datos una vez al montar el componente
+    
     fetchData();
   }, []);
 
@@ -51,7 +52,7 @@ const MisCompras = () => {
           </thead>
           <tbody>
             {purchaseItems.map((purchase) => {
-              let purchaseTotal = 0; // Inicializa el total de compra
+              let purchaseTotal = 0;
 
               return (
                 <tr key={purchase.key}>
@@ -75,7 +76,9 @@ const MisCompras = () => {
                   <td>
                     <ul>
                       {purchase.data.map((product) => (
-                        <li className="liCompras" key={product.id}>${product.price}</li>
+                        <li className="liCompras" key={product.id}>
+                        <GetPriceById id_producto={product.id} />
+                      </li>
                       ))}
                     </ul>
                   </td>

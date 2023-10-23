@@ -31,9 +31,10 @@ const GetProductById = ({ id_producto }) => {
   }, [id_producto]);
 
   return product ? (
-    <div>
-      <p>{product.title}</p>
+    <div className='p_contenedor'>
+      
       <img className='imgProducto' src={product.image} alt={product.title} />
+      <p>{product.title}</p>
     </div>
   ) : null;
 };
